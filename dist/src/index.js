@@ -4,12 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+// dotenv.config();
+// const app = express();
+// const PORT = 3003;
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// // app.use(urlRouter);
+// app.get("/", (req, res) => {
+//   res.send(`<h1>Hello!</h1>`);
+// });
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 const app = (0, express_1.default)();
-const PORT = 3003;
-app.use(express_1.default.urlencoded({ extended: true }));
-app.use(express_1.default.json());
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const port = 3000;
+app.get("/", (req, res) => {
+    res.send(`<h1>Hello!</h1>`);
+});
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
