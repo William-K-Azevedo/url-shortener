@@ -7,5 +7,5 @@ exports.urlRouter = void 0;
 const express_1 = require("express");
 const urlController_1 = __importDefault(require("../controllers/urlController"));
 exports.urlRouter = (0, express_1.Router)();
-exports.urlRouter.get("/short", urlController_1.default.addNewShortUrl);
+exports.urlRouter.post("/short", urlController_1.default.addNewShortUrl);
 exports.urlRouter.get("/:urlId", urlController_1.default.redirectToUrl);
