@@ -12,8 +12,8 @@ datasource db {
 
 model Url {
   urlId    String   @id
-  origUrl  String   
-  shortUrl String
+  origUrl  String   @unique
+  shortUrl String   @unique
   clicks   Int      @default(0) 
   date     DateTime @default(now())
 }

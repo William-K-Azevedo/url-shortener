@@ -8,13 +8,60 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const nanoid_1 = require("nanoid");
+const urlService_1 = __importDefault(require("../services/urlService"));
+const urlValidation_1 = require("../utils/urlValidation");
 class UrlShortener {
     addNewShortUrl(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return res.json({
-                estado: "tudo certo",
-            });
+            const { origUrl } = req.body;
+            const base = process.env.BASE;
+            const urlId = (0, nanoid_1.nanoid)();
+            if ((0, urlValidation_1.isValidURL)(origUrl)) {
+                try {
+                    let url = yield urlService_1.default.findOneUrl(origUrl);
+                    if (url) {
+                        return res.json(url);
+                    }
+                    else {
+                        const shortUrl = `${base}/api/${urlId}`;
+                        const date = new Date();
+                        url = yield urlService_1.default.addUrl(origUrl, shortUrl, urlId, date);
+                        return res.json(url);
+                    }
+                }
+                catch (error) {
+                    console.log(error);
+                    return res.status(500).json("Server Error");
+                }
+            }
+            else {
+                return res.status(400).json("Invalid url provided");
+            }
+        });
+    }
+    redirectToUrl(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { urlId } = req.params;
+                const url = yield urlService_1.default.findOneUrl(urlId);
+                if (url) {
+                    yield urlService_1.default.updateUrlClicks(urlId);
+                    return res.redirect(url.origUrl);
+                }
+                else {
+                    console.log(urlId);
+                    return res.status(400).json("Url not found");
+                }
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(500).json("Server error");
+            }
         });
     }
 }
