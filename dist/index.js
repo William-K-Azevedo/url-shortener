@@ -15,3 +15,4 @@ app.use("/api", urlRouter_1.urlRouter);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+exports.default = app;

@@ -32,7 +32,7 @@ class UrlService {
 
   async updateUrlClicks(urlId: string) {
     try {
-      await prisma.url.update({
+      const updatedUrl = await prisma.url.update({
         where: {
           urlId,
         },
@@ -42,6 +42,7 @@ class UrlService {
           },
         },
       });
+      return updatedUrl;
     } catch (error) {
       console.log(error);
     }
