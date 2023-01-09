@@ -50,7 +50,7 @@ class UrlService {
     updateUrlClicks(urlId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield client_1.default.url.update({
+                const updatedUrl = yield client_1.default.url.update({
                     where: {
                         urlId,
                     },
@@ -60,6 +60,7 @@ class UrlService {
                         },
                     },
                 });
+                return updatedUrl;
             }
             catch (error) {
                 console.log(error);

@@ -25,10 +25,10 @@ class UrlShortener {
         }
       } catch (error) {
         console.log(error);
-        return res.status(500).json("Server Error");
+        return res.status(500).send("Server Error");
       }
     } else {
-      return res.status(400).json("Invalid url provided");
+      return res.status(400).send("Invalid url provided");
     }
   }
 
@@ -44,11 +44,11 @@ class UrlShortener {
       } else {
         console.log(urlId);
 
-        return res.status(400).json("Url not found");
+        return res.status(400).send("Url not found");
       }
     } catch (error) {
       console.log(error);
-      return res.status(500).json("Server error");
+      return res.status(500).send("Server error");
     }
   }
 }
