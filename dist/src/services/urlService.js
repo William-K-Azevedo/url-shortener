@@ -17,12 +17,11 @@ class UrlService {
     findOneUrl(urlId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = yield client_1.default.url.findFirst({
+                return yield client_1.default.url.findFirst({
                     where: {
                         urlId,
                     },
                 });
-                return url;
             }
             catch (error) {
                 console.log(error);
@@ -32,7 +31,7 @@ class UrlService {
     addUrl(origUrl, shortUrl, urlId, date) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const newUrl = yield client_1.default.url.create({
+                return yield client_1.default.url.create({
                     data: {
                         origUrl,
                         shortUrl,
@@ -40,7 +39,6 @@ class UrlService {
                         date,
                     },
                 });
-                return newUrl;
             }
             catch (error) {
                 console.log(error);
@@ -50,7 +48,7 @@ class UrlService {
     updateUrlClicks(urlId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const updatedUrl = yield client_1.default.url.update({
+                return yield client_1.default.url.update({
                     where: {
                         urlId,
                     },
@@ -60,7 +58,6 @@ class UrlService {
                         },
                     },
                 });
-                return updatedUrl;
             }
             catch (error) {
                 console.log(error);

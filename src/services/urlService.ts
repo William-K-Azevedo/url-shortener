@@ -3,12 +3,11 @@ import prisma from "../../prisma/client";
 class UrlService {
   async findOneUrl(urlId: string) {
     try {
-      const url = await prisma.url.findFirst({
+      return await prisma.url.findFirst({
         where: {
           urlId,
         },
       });
-      return url;
     } catch (error) {
       console.log(error);
     }
@@ -16,7 +15,7 @@ class UrlService {
 
   async addUrl(origUrl: string, shortUrl: string, urlId: string, date: Date) {
     try {
-      const newUrl = await prisma.url.create({
+      return await prisma.url.create({
         data: {
           origUrl,
           shortUrl,
@@ -24,7 +23,6 @@ class UrlService {
           date,
         },
       });
-      return newUrl;
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +30,7 @@ class UrlService {
 
   async updateUrlClicks(urlId: string) {
     try {
-      const updatedUrl = await prisma.url.update({
+      return await prisma.url.update({
         where: {
           urlId,
         },
@@ -42,7 +40,6 @@ class UrlService {
           },
         },
       });
-      return updatedUrl;
     } catch (error) {
       console.log(error);
     }
