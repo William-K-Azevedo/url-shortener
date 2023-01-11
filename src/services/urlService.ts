@@ -1,9 +1,21 @@
 import prisma from "../../prisma/client";
 
 class UrlService {
-  async findOneUrl(urlId: string) {
+  async findOneUrlByOrigUrl(origUrl: string) {
     try {
-      return await prisma.url.findFirst({
+      return await prisma.url.findUnique({
+        where: {
+          origUrl,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async findOneUrlByUrlId(urlId: string) {
+    try {
+      return await prisma.url.findUnique({
         where: {
           urlId,
         },

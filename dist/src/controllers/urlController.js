@@ -23,15 +23,15 @@ class UrlShortener {
             const urlId = (0, nanoid_1.nanoid)();
             if ((0, urlValidation_1.isValidURL)(origUrl)) {
                 try {
-                    let url = yield urlService_1.default.findOneUrl(origUrl);
+                    let url = yield urlService_1.default.findOneUrlByOrigUrl(origUrl);
                     if (url) {
-                        return res.json(url);
+                        return res.json(url.shortUrl);
                     }
                     else {
                         const shortUrl = `${base}/api/${urlId}`;
                         const date = new Date();
                         url = yield urlService_1.default.addUrl(origUrl, shortUrl, urlId, date);
-                        return res.json(url);
+                        return res.json(url === null || url === void 0 ? void 0 : url.shortUrl);
                     }
                 }
                 catch (error) {
@@ -48,7 +48,7 @@ class UrlShortener {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { urlId } = req.params;
-                const url = yield urlService_1.default.findOneUrl(urlId);
+                const url = yield urlService_1.default.findOneUrlByUrlId(urlId);
                 if (url) {
                     yield urlService_1.default.updateUrlClicks(urlId);
                     return res.redirect(url.origUrl);

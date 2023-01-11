@@ -14,10 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = __importDefault(require("../../prisma/client"));
 class UrlService {
-    findOneUrl(urlId) {
+    findOneUrlByOrigUrl(origUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield client_1.default.url.findFirst({
+                return yield client_1.default.url.findUnique({
+                    where: {
+                        origUrl,
+                    },
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
+    findOneUrlByUrlId(urlId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield client_1.default.url.findUnique({
                     where: {
                         urlId,
                     },

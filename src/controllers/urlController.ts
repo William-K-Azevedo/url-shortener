@@ -11,17 +11,17 @@ class UrlShortener {
 
     if (isValidURL(origUrl)) {
       try {
-        let url = await UrlService.findOneUrl(origUrl);
+        let url = await UrlService.findOneUrlByOrigUrl(origUrl);
 
         if (url) {
-          return res.json(url);
+          return res.json(url.shortUrl);
         } else {
           const shortUrl = `${base}/api/${urlId}`;
           const date = new Date();
 
           url = await UrlService.addUrl(origUrl, shortUrl, urlId, date);
 
-          return res.json(url);
+          return res.json(url?.shortUrl);
         }
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ class UrlShortener {
   async redirectToUrl(req: Request, res: Response) {
     try {
       const { urlId } = req.params;
-      const url = await UrlService.findOneUrl(urlId);
+      const url = await UrlService.findOneUrlByUrlId(urlId);
 
       if (url) {
         await UrlService.updateUrlClicks(urlId);
