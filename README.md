@@ -15,7 +15,7 @@ caso contrario, ele somente retorna o url encurtado já existente.
 - Express
 - Node.js 
 - typescript
-- Jest ( teste em andamneto )
+- Jest ( teste em andamento )
  
  ## Pacotes auxiliares:  
 - Prisma (orm) 
